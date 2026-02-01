@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will You Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe3ec, #ffd1dc, #ffc2d1);
+      font-family: "Playfair Display", "Segoe UI", serif;
+      overflow: hidden;
+    }
+    .card {
+      background: #fff;
+      width: min(92vw, 420px);
+      padding: 22px;
+      border-radius: 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.15);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #f6f6f6;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    h1 {
+      color: #d6336c;
+      font-size: 1.6rem;
+      margin: 10px 0 6px;
+    }
+    p {
+      color: #555;
+      margin: 0 0 18px;
+      font-size: 1rem;
+    }
+    .buttons {
+      position: relative;
+      height: 56px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+    button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .yes {
+      background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(255,77,109,.35);
+    }
+    .yes:active { transform: scale(.98); }
+    .no {
+      position: absolute;
+      right: 0;
+      background: #eee;
+      color: #888;
+    }
+    .footer {
+      margin-top: 10px;
+      font-size: .85rem;
+      color: #aaa;
+    }
+
+    /* floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 0.8; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background music -->
+  <iframe width="0" height="0" 
+    src="https://www.youtube.com/embed/5dXo4RZzZGo?autoplay=1&loop=1&playlist=5dXo4RZzZGo"
+    frameborder="0"
+    allow="autoplay">
+  </iframe>
+
+  <div class="card">
+    <div class="photo">
+      <img src="DSC_9573.jpg" alt="Us together" />
+    </div>
+
+    <h1>Will you be my Valentine? 💕</h1>
+    <p>You make my world softer, warmer, and infinitely more beautiful.</p>
+
+    <div class="buttons">
+      <button class="yes" onclick="sayYes()">Yes 💖</button>
+      <button class="no" id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="footer">Made with love ✨</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+
+    function moveButton() {
+      const parent = noBtn.parentElement;
+      const maxX = parent.clientWidth - noBtn.offsetWidth;
+      const maxY = parent.clientHeight - noBtn.offsetHeight;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function sayYes() {
+      document.body.innerHTML = `
+        <div style="
+          min-height:100vh;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          font-family:Playfair Display, serif;
+          background:linear-gradient(135deg,#ffe3ec,#ffd1dc);
+        ">
+          <div>
+            <h1 style="color:#d6336c;">You said YES 💕🥰</h1>
+            <p style="font-size:1.1rem;">I can’t wait to celebrate us.</p>
+          </div>
+        </div>
+      `;
+      window.location.href =
+        "https://wa.me/?text=" +
+        encodeURIComponent("I said YES 💖 Happy Valentine’s Day ❤️");
+    }
+
+    // floating hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }, 600);
+  </script>
+</body>
+</html>
